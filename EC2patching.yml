@@ -2,7 +2,7 @@
     become: true
 
     tasks:
-    - name: gather ec2 facts
+    - name: Gather ec2 facts
       action: ec2_facts
       register: EC2facts
 
@@ -14,7 +14,7 @@
       apt: upgrade=yes update_cache=yes
       when: ansible_os_family == "Debian"
 
-    - name: Reboot the critical application during non business hours.
+    - name: Reboot the critical application during non business hours after patching.
       command: echo "/sbin/shutdown -h now" |at 20:00 today
       ignore_errors: true
       when: EC2facts.tag.AppType == "Critical"
