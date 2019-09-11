@@ -17,8 +17,8 @@
     - name: Reboot the critical application during non business hours.
       command: echo "/sbin/shutdown -h now" |at 20:00 today
       ignore_errors: true
-      when: "tag:AppType" == "Critical"
+      when: EC2facts.tag.AppType == "Critical"
 
     - name: Reboot all the non critical application after patching.
       command: shutdown -r +1 “Rebooting System After Patching”
-      when: "tag:AppType" == "NonCritical"
+      when: EC2facts.tag.AppType == "NonCritical"
