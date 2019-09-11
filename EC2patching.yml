@@ -1,0 +1,24 @@
+- hosts: all
+    become: true
+
+    tasks:
+    - name: gather ec2 facts
+      action: ec2_facts
+      register: EC2facts
+
+    - name: Patching on redhat or centos instances
+      yum: name="*" state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Patching  on debian or ubuntu instances
+      apt: upgrade=yes update_cache=yes
+      when: ansible_os_family == "Debian"
+
+    - name: Reboot the critical application during non business hours.
+      command: echo "/sbin/shutdown -h now" |at 20:00 today
+      ignore_errors: true
+      when: "tag:AppType" == "Critical"
+
+    - name: Reboot all the non critical application after patching.
+      command: shutdown -r +1 “Rebooting System After Patching”
+      when: "tag:AppType" == "NonCritical"
