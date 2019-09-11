@@ -40,5 +40,12 @@ Step 2: Below is the Ansible playbook for EC2 patching.
       command: shutdown -r +1 “Rebooting System After Patching”
       when: "tag:AppType" == "NonCritical"
       
+Step 3: Select the AWS service system manager "Run Command on the left"
+Select the instance to patch based on the tags or groups or manual selection.
+
+Step 4: Using the Run command, AWS CLI execute the below command by placing the above playbook in s3 bucket.
+aws ssm send-command --document-name "AWS-RunAnsible" --instance-ids "Redhat AppA id " "Ubuntu AppB id" "" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbook":["s3://carsaless3bucket/EC2patching.yml"]}' --timeout-seconds 600 --region ap-southeast-2a
+
+Step 5: Run Command shows the progress of the OS patching by running the playbook and the result of success. The logs are being logged to the s3 bucket choosen to log the results.
       
       
