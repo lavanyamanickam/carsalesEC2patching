@@ -21,4 +21,5 @@
 
     - name: Reboot all the non critical application after patching.
       command: shutdown -r +1 “Rebooting System After Patching”
+      ignore_errors: true
       when: EC2facts.tag.AppType == "NonCritical"
