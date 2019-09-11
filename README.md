@@ -4,7 +4,7 @@ carsalesEC2patching using Ansible Playbook
 Below are the steps to be followed in implementing the EC2 patching using AWS SSM and Ansible Playbook.
 
 UseCase: Two EC2 machines with different linux versions ( Redhat, Ubuntu ) running on the AWS account. Requirement is to patch both the
-EC2 instance and reboot at differnt timings based on its application criticality after business hours if required. The application type is been tagged on EC2 mentioning Critical or Non Critical.
+EC2 instance and reboot at different timings based on its application criticality after business hours if required. The application type is been tagged on EC2 console mentioning Critical or Non Critical.
 
 Step 1: Install Ansible on both the EC2 while creating the EC2 instances using the bootstrap command.
 ( For Ubuntu )
